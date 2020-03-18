@@ -1,0 +1,40 @@
+<%- include('../partials/header.ejs') %>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-0 col-md-3"></div>
+        <div class="col-md-6">
+            <div >
+                <h1>Create new campround</h1>
+                <form action="/campgrounds" method="POST">
+                    <div class="form-group">
+                        <input  class="form-control" type="text" name="name" placeholder="Name "/>
+                    </div>
+                    <div class="form-group">
+                        <input  class="form-control" min="1"   type="number" name="price" placeholder="Price "/>
+                    </div>
+                    
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="image1" placeholder="image1 url" required/>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="image2" placeholder="optional image 2"/>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="image3" placeholder="optional image 3"/>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="description" placeholder="description"/>
+                    </div>
+                    
+                    <input class="btn btn-primary btn-lg" style="width:100%;" type="submit" role="button" value="Create"/>
+                </form>
+                <a  href="/campgrounds">View all campgrounds</a>
+            </div>
+        
+
+
+        </div>
+    </div>
+</div>
+<%- include('../partials/footer.ejs') %>

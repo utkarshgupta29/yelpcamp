@@ -1,0 +1,94 @@
+<%- include('../partials/header.ejs')%>
+
+
+
+<div class="container">
+    <div class="col-md-3">
+        <p class="lead">YelpCamp</p>
+        <div class="list-group">
+            <li class="images list-group-item active" onclick="changeImage(0)">Image1</li>
+            <%if(!campground.image[1]){%>
+            <li  class="images list-group-item disabled" >Image2</li>
+            <% }else{ %>
+                <li class="images list-group-item" onclick="changeImage(1)">Image2</li>
+            <% }
+            if(!campground.image[2]){ %>
+                <li class="images list-group-item disabled">Image2</li>
+            <% }else{ %>
+                <li class="images list-group-item" onclick="changeImage(2)">Image2</li>
+            <% }%>
+                
+        </div>
+    </div>
+    <div class="col-md-9">
+        <div class="thumbnail">
+            <img style="width:100%" class="img-responsive" src='<%=campground.image[0]%>' alt = "<%=campground.name %>"/>
+            <li class="hideImage">
+                <%=campground.image[0]%>
+            </li>
+            <li class="hideImage">
+                <%=campground.image[1]%>
+            </li>
+            <li class="hideImage">
+                <%=campground.image[2]%>
+            </li>
+            <div class="caption-full">
+                <h4 class="lead pull-right">Rs.<%=campground.price%></h4>
+                <h4 class="lead text-warning"><%=campground.name%></h4>
+                <p class='lead text-secondary text-small'><%=campground.description%></p>
+                <p class="text-info pull-right"><strong>Uploaded On :</strong> <%=campground.created.toDateString()%></p>
+                <p class="text-info"><strong>Submited By : </strong><em ><%=campground.author.username%></em></p>
+                <% if(currentUser && campground.author.id.equals(currentUser._id)){%>
+                <a class="btn btn-default btn-xs" href="/campgrounds/<%=campground._id%>/edit">Edit</a>
+                <form id="deleteButton" method="POST" action="/campgrounds/<%=campground._id%>?_method=DELETE">
+                    <button type="submit" class="btn btn-danger btn-xs">Delete</button>
+                </form>
+                <% } %>
+            </div>
+        </div>
+        <div class="well">
+            <div class="text-right">
+                <a class="btn btn-success" href="/campgrounds/<%=campground._id%>/comments/new">Add Comment</a>
+            </div>
+            <hr>
+            <%    campground.comments.forEach(function(comment){%>
+        
+                <div class="row">
+                    <div class="col-md-12">
+                        <h5><strong><%=comment.author.username%></strong></h5>
+                        <span class="pull-right"><%=comment.created.toDateString()%></span>
+                        <p><%=comment.text%></p>
+                        <% if(currentUser && comment.author.id.equals(currentUser._id)){%>
+                        <a href="/campgrounds/<%=campground._id%>/comments/<%=comment._id%>/edit" class="btn btn-xs btn-defaut">Edit</a>
+                        <form id="deleteButton" method="POST" action="/campgrounds/<%=campground._id%>/comments/<%=comment._id%>?_method=DELETE">
+                            <button type="submit" class="btn btn-danger btn-xs">Delete</button>
+                        </form>
+                        <%}%>
+                    </div>
+                </div>
+            <%    }) %>
+            
+        </div>
+        
+            
+    </div>
+    
+</div>
+
+<script>
+    var imageArray = campground.image;
+    function changeImage(index){
+        var image = document.getElementsByTagName("img")[0];
+        image.setAttribute("src",document.getElementsByClassName('hideImage')[index].textContent.trim());
+        var images = document.getElementsByClassName('images');
+        for(var i=0;i<3;i++){
+            if(i==index){
+                images[i].classList.add("active");
+            }else{
+                images[i].classList.remove("active");
+            }
+        }
+    }
+
+</script>
+<%- include('../partials/footer.ejs')%>
