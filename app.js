@@ -1,16 +1,14 @@
 var express = require('express');
 
 var app = express();
-var mongoose = require('mongoose');
 var methodOverride = require('method-override');
-var seedDB = require("./seed");
 var connectFlash = require('connect-flash');
+const dotenv = require('dotenv');
+const path = require('path');
+// var seedDB = require("./seed");
 
-mongoose.connect('mongodb://localhost/yelpcamp',{useNewUrlParser : true,useUnifiedTopology : true});
-
-
-var Campground = require('./models/campground');
-var Comment = require('./models/comment');
+// Load environment variables from .env file
+dotenv.config({ path: path.join(__dirname, '.env') });
 
 var bodyParser = require('body-parser');
 var passport = require('passport');
@@ -58,5 +56,5 @@ app.get('*',function(req,res){
     res.render("errorPage");
 })
 app.listen(process.env.PORT || 5000 , function(){
-    console.log('Server started succesfully.');
+    console.log('Server started succesfully at ' + process.env.PORT);
 });

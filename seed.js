@@ -1,6 +1,3 @@
-var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/yelpcamp',{useNewUrlParser : true,useUnifiedTopology : true});
-
 var Campground = require('./models/campground');
 var Comment = require('./models/comment');
 

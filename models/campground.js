@@ -1,6 +1,4 @@
-var mongoose = require('mongoose');
-
-mongoose.connect('mongodb://localhost/yelpcamp',{useNewUrlParser : true,useUnifiedTopology : true});
+const mongoose = require('../dbcontext');
 
 var campgroundSchema = new mongoose.Schema({
     name : String,
