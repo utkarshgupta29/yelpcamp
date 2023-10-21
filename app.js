@@ -18,6 +18,7 @@ var User = require('./models/user');
 var indexRoutes = require('./routes/index');
 var campgroundRoutes = require('./routes/campground');
 var commentRoutes = require('./routes/comment');
+var kaffeine = require('./Kaffeine');
 
 app.set('view engine','ejs');
 app.use(bodyParser.urlencoded({extended:true}));
@@ -57,4 +58,6 @@ app.get('*',function(req,res){
 })
 app.listen(process.env.PORT || 5000 , function(){
     console.log('Server started succesfully at ' + process.env.PORT);
+    kaffeine.setup();
+    console.log('Kaffeine has been invoked.');
 });
